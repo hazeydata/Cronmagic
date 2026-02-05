@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CronMagic - Human-Readable Cron Expressions</title>
+    <meta name="description" content="Convert plain English to cron expressions and vice versa. The simplest cron builder on the internet.">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="CronMagic - Human-Readable Cron Expressions">
+    <meta property="og:description" content="Convert plain English to cron expressions. Never forget cron syntax again.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/6366f1/ffffff?text=CronMagic">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>⏰ CronMagic</h1>
+            <p class="tagline">Human-readable cron expressions. Never forget the syntax again.</p>
+        </header>
+
+        <!-- Main Tool -->
+        <main class="tool">
+            <!-- Mode Toggle -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" data-mode="english">English → Cron</button>
+                <button class="mode-btn" data-mode="cron">Cron → English</button>
+            </div>
+
+            <!-- English to Cron Mode -->
+            <div class="input-section" id="english-mode">
+                <label for="english-input">Describe your schedule:</label>
+                <input 
+                    type="text" 
+                    id="english-input" 
+                    placeholder="e.g., Every Monday at 9am, Every 5 minutes, Daily at midnight"
+                    autocomplete="off"
+                >
+                <div class="quick-picks">
+                    <span class="quick-pick" data-value="every minute">every minute</span>
+                    <span class="quick-pick" data-value="every 5 minutes">every 5 min</span>
+                    <span class="quick-pick" data-value="every hour">every hour</span>
+                    <span class="quick-pick" data-value="daily at midnight">daily at midnight</span>
+                    <span class="quick-pick" data-value="every monday at 9am">monday 9am</span>
+                    <span class="quick-pick" data-value="weekdays at 8am">weekdays 8am</span>
+                </div>
+            </div>
+
+            <!-- Cron to English Mode -->
+            <div class="input-section hidden" id="cron-mode">
+                <label for="cron-input">Enter cron expression:</label>
+                <input 
+                    type="text" 
+                    id="cron-input" 
+                    placeholder="e.g., */5 * * * * or 0 9 * * 1"
+                    autocomplete="off"
+                >
+                <div class="cron-helper">
+                    <span>┌───────────── minute (0-59)</span>
+                    <span>│ ┌─────────── hour (0-23)</span>
+                    <span>│ │ ┌───────── day of month (1-31)</span>
+                    <span>│ │ │ ┌─────── month (1-12)</span>
+                    <span>│ │ │ │ ┌───── day of week (0-6, Sun=0)</span>
+                    <span>│ │ │ │ │</span>
+                    <span>* * * * *</span>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <div class="result-box">
+                    <label>Result:</label>
+                    <div class="result-value" id="result-value">
+                        <span class="placeholder">Enter a schedule above...</span>
+                    </div>
+                    <button class="copy-btn" id="copy-btn" disabled>📋 Copy</button>
+                </div>
+                
+                <div class="next-runs" id="next-runs">
+                    <label>Next 5 runs:</label>
+                    <ul id="runs-list">
+                        <li class="placeholder">--</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Common Examples -->
+        <section class="examples">
+            <h2>📚 Common Cron Patterns</h2>
+            <div class="examples-grid">
+                <div class="example">
+                    <code>* * * * *</code>
+                    <span>Every minute</span>
+                </div>
+                <div class="example">
+                    <code>*/5 * * * *</code>
+                    <span>Every 5 minutes</span>
+                </div>
+                <div class="example">
+                    <code>0 * * * *</code>
+                    <span>Every hour</span>
+                </div>
+                <div class="example">
+                    <code>0 0 * * *</code>
+                    <span>Daily at midnight</span>
+                </div>
+                <div class="example">
+                    <code>0 9 * * 1</code>
+                    <span>Monday at 9:00 AM</span>
+                </div>
+                <div class="example">
+                    <code>0 9 * * 1-5</code>
+                    <span>Weekdays at 9:00 AM</span>
+                </div>
+                <div class="example">
+                    <code>0 0 1 * *</code>
+                    <span>First of every month</span>
+                </div>
+                <div class="example">
+                    <code>0 0 * * 0</code>
+                    <span>Every Sunday at midnight</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support">
+            <h2>☕ Support CronMagic</h2>
+            <p>If this tool saved you time, consider buying me a coffee!</p>
+            <a href="https://buymeacoffee.com/hazeydata" target="_blank" class="coffee-btn">
+                ☕ Buy me a coffee
+            </a>
+        </section>
+
+        <!-- Recommended Services -->
+        <section class="services">
+            <h2>🔧 Need Cron Job Hosting?</h2>
+            <p>Run your cron jobs in the cloud without managing servers:</p>
+            <div class="services-grid">
+                <a href="https://www.easycron.com/?ref=cronmagic" target="_blank" class="service-card" rel="sponsored">
+                    <strong>EasyCron</strong>
+                    <span>Simple cloud cron jobs. Free tier available.</span>
+                </a>
+                <a href="https://cron-job.org" target="_blank" class="service-card">
+                    <strong>cron-job.org</strong>
+                    <span>Free cron job service for developers.</span>
+                </a>
+                <a href="https://render.com" target="_blank" class="service-card">
+                    <strong>Render</strong>
+                    <span>Modern cloud with built-in cron jobs.</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Email Signup -->
+        <section class="signup">
+            <h2>🚀 Get CronMagic Pro</h2>
+            <p>API access, cron monitoring, Slack alerts, and more. Join the waitlist.</p>
+            <form id="signup-form" class="signup-form">
+                <input type="email" id="email" placeholder="your@email.com" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+            <p class="signup-note" id="signup-message"></p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with ☕ for developers who forget cron syntax (all of us)</p>
+            <p class="footer-links">
+                <a href="#" id="feedback-link">Send Feedback</a> · 
+                <a href="https://github.com/hazeydata" target="_blank">GitHub</a> ·
+                <a href="https://hazeydata.ai" target="_blank">Hazeydata</a>
+            </p>
+            <p class="footer-coffee">
+                <a href="https://buymeacoffee.com/hazeydata" target="_blank">☕ Support this project</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedback-modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>📝 Send Feedback</h2>
+            <form id="feedback-form">
+                <textarea id="feedback-text" placeholder="What would make CronMagic better?" rows="4" required></textarea>
+                <input type="email" id="feedback-email" placeholder="Email (optional)">
+                <button type="submit">Send Feedback</button>
+            </form>
+            <p id="feedback-message"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
